@@ -13,14 +13,14 @@ jobs:
 
     # Restore bundle cache
     - type: cache-restore
-      key: rails-demo-
+      key: rails-demo-{{ checksum "Gemfile.lock" }}
 
     # Bundle install dependencies
     - run: bundle install --path vendor/bundle
 
     # Store bundle cache
     - type: cache-save
-      key: rails-demo-
+      key: rails-demo-{{ checksum "Gemfile.lock" }}
       paths:
         - vendor/bundle
 
@@ -29,9 +29,7 @@ jobs:
     - run: bundle exec rake db:schema:load
 
     # Run minitest
-    - run:
-      name: Run tests
-      command: bundle exec rake test
+    - run: bundle exec rake test
 
     # Save artifacts
     - type: store_test_results
