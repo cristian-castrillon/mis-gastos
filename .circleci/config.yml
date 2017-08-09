@@ -25,7 +25,7 @@ jobs:
       - run: bundle install --path vendor/bundle
 
       # Database setup
-      - run: bundle exec rake db:create
+      - run: rails db:create
       - run: bundle exec rake db:schema:load
 
       # Run minitest
