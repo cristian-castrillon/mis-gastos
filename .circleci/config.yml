@@ -4,33 +4,33 @@ jobs:
   build:
     working_directory: ~/Desktop/rails-2/proyect/mis-gastos
 
-  docker:
-    - image: circleci/ruby:2.4.1-node
-    - image: circleci/postgres:9.4.12-alpine
+    docker:
+      - image: circleci/ruby:2.4.1-node
+      - image: circleci/postgres:9.4.12-alpine
 
-  steps:
-    - checkout
+    steps:
+      - checkout
 
-    # Store bundle cache
-    - save_cache:
-      key: rails-demo-{{ checksum "Gemfile.lock" }}
-      paths:
-        - vendor/bundle
+      # Store bundle cache
+      - save_cache:
+        key: rails-demo-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
 
-    # Restore bundle cache
-    - restore_cache:
-      key: rails-demo-{{ checksum "Gemfile.lock" }}
+      # Restore bundle cache
+      - restore_cache:
+        key: rails-demo-{{ checksum "Gemfile.lock" }}
 
-    # Bundle install dependencies
-    - run: bundle install --path vendor/bundle
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
 
-    # Database setup
-    - run: bundle exec rake db:create
-    - run: bundle exec rake db:schema:load
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
 
-    # Run minitest
-    - run: bundle exec rake test
+      # Run minitest
+      - run: bundle exec rake test
 
-    # Save artifacts
-    - type: store_test_results
-      path: /tmp/test-results
+      # Save artifacts
+      - type: store_test_results
+        path: /tmp/test-results
