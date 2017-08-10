@@ -33,7 +33,7 @@ jobs:
       - run: bundle install --path vendor/bundle
 
       # Database setup
-      - run: rails db:create db:schema:load --trace && rails db:migrate
+      - run: rails db:create db:migrate --trace && rails db:schema:load
 
       # Run minitest
       - run: bundle exec rake test
