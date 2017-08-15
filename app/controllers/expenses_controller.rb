@@ -12,7 +12,21 @@ class ExpensesController < ApplicationController
     else
       @expenses = Expense.all
     end
+    @expense = Expense.new
     puts params
+  end
+
+  def create
+    expense = Expense.new(expense_params)
+    if expense.save
+      redirect_to(expenses_path)
+    else
+      @errors = expense.errors.full_messages
+      @categories = Category.all
+      @expenses = Expense.all
+      @expense = Expense.new
+      render :index
+    end
   end
 
   private
