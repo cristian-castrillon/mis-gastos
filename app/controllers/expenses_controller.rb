@@ -1,5 +1,6 @@
 # Controller for expenses
 class ExpensesController < ApplicationController
+  before_action :find_expense, only: [:destroy]
   def index
     @tab = :expenses
     @categories = Category.all
@@ -29,9 +30,18 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def destroy
+    @expense.destroy
+    redirect_to(expenses_path, notice: 'Expense has been deleted successfully')
+  end
+
   private
 
     def expense_params
       params.require(:expense).permit(:expense_type, :date, :concept, :category_id, :amount)
+    end
+
+    def find_expense
+      @expense = Expense.find(params[:id])
     end
 end
