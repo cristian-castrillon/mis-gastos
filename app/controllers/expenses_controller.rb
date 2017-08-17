@@ -1,6 +1,6 @@
 # Controller for expenses
 class ExpensesController < ApplicationController
-  before_action :find_expense, only: [:destroy]
+  before_action :find_expense, only: [:edit, :update, :destroy]
   def index
     @tab = :expenses
     @categories = Category.all
@@ -13,21 +13,36 @@ class ExpensesController < ApplicationController
     else
       @expenses = Expense.all
     end
+    # @expense = Expense.new
+    # puts params
+  end
+
+  def new
     @expense = Expense.new
-    puts params
+    @categories = Category.all
   end
 
   def create
     expense = Expense.new(expense_params)
     if expense.save
-      redirect_to(expenses_path)
+      redirect_to(expenses_path, notice: 'Expense has been created successfully')
     else
-      @errors = expense.errors.full_messages
+      # @errors = expense.errors.full_messages
       @categories = Category.all
       @expenses = Expense.all
       @expense = Expense.new
       render :index
     end
+  end
+
+  def edit
+    @categories = Category.all
+    @expenses = Expense.all
+  end
+
+  def update
+    @expense.update(expense_params)
+    redirect_to(expenses_path, notice: 'Expense has been updated successfully')
   end
 
   def destroy

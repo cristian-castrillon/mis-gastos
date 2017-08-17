@@ -1,0 +1,54 @@
+<div class="modal fade" id="myExpense" tabindex="-1" role="dialog" aria-labelledby="myExpenseLabel" show>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myExpenseLabel">Expense</h4>
+      </div>
+
+      <%= form_for @expense do |f| %>
+        <div class="modal-body">
+
+          <% if @expense.errors.any? %>
+            <div class="alert alert-danger">
+              <ul>
+              <% @expense.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :expense_type, 'Tipo' %><br>
+            <%= f.select :expense_type, [['Compra', 'compra'], ['Retiro', 'retiro'], ['Transferencia', 'transferencia'], ['Pago', 'pago']], {include_blank: false}, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :date, 'Fecha' %><br>
+            <%= f.date_field :date, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :concept, 'Concepto' %><br>
+            <%= f.text_field :concept, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :category_id, 'Categoría' %><br>
+            <%= f.select :category_id, @categories.collect {|p| [ p.name, p.id ] }, {include_blank: false}, class: "form-control"  %>
+          </div>
+          <div class="form-group">
+            <%= f.label :amount, 'Cantidad' %>
+            <%= f.number_field :amount, step: 0.01, min: 0, class: "form-control" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <div class="action">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <%= f.submit 'Crear gasto', class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
