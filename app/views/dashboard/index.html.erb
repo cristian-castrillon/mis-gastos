@@ -1,19 +1,19 @@
 <div class="container">
     <div class="row">
       <div class="total-box col-md-3">
-        $200,000
+        $ <%= Expense.where(date: Date.today).sum(:amount) %>
         <span>HOY</span>
       </div>
       <div class="total-box col-md-3">
-        $140,000
+          $ <%= Expense.where(date: 1.day.ago).sum(:amount) %>
         <span>AYER</span>
       </div>
       <div class="total-box col-md-3">
-        $7,500,000
+          $ <%= Expense.where('extract(month from date) = ?', Date.today.month).sum(:amount) %>
         <span>ESTE MES</span>
       </div>
       <div class="total-box col-md-3">
-        $6,200,000
+          $ <%= Expense.where('extract(month from date) = ?', 1.month.ago.month).sum(:amount) %>
         <span>MES PASADO</span>
       </div>
     </div>
@@ -23,7 +23,9 @@
         <div class="panel panel-default">
           <div class="panel-heading">Últimos 6 Meses</div>
           <div class="panel-body">
-            <div id="expenses-chart" style="height: 250px;"></div>
+            <div id="expenses-chart" style="height: 250px;">
+              <%= column_chart Expense.group('extract(month from date)').order('extract(month from date)').group(:expense_type).count, stacked: true, width: "550px", height: "250px" %>
+            </div>
           </div>
         </div>
       </div>
@@ -31,7 +33,9 @@
         <div class="panel panel-default">
           <div class="panel-heading">Por Día</div>
           <div class="panel-body">
-            <div id="daily-expenses-chart" style="height: 250px;"></div>
+            <div id="daily-expenses-chart" style="height: 250px;">
+              <%= column_chart Expense.where('extract(month from date) = ?', Date.today.month).group(:date).group(:expense_type).count, stacked: true, width: "550px", height: "250px" %>
+            </div>
           </div>
         </div>
       </div>
@@ -42,7 +46,9 @@
         <div class="panel panel-default">
           <div class="panel-heading">Por Categoría</div>
           <div class="panel-body">
-            <div id="category-chart" style="height: 250px;"></div>
+            <div id="category-chart" style="height: 250px;">
+              <%= pie_chart Expense.includes(:category).where('extract(month from date) = ?', Date.today.month).group(:category_id).count, donut: true, width: "550px", height: "250px" %>
+            </div>
           </div>
         </div>
       </div>
@@ -50,7 +56,12 @@
         <div class="panel panel-default">
           <div class="panel-heading">Acumulado</div>
           <div class="panel-body">
-            <div id="month-acc" style="height: 250px;"></div>
+            <div id="month-acc" style="height: 250px;">
+              <%= area_chart [
+              {name: Date::MONTHNAMES[Date.today.month], data: Expense.where('extract(month from date) = ?', Date.today.month).order('extract(day from date)').group('extract(day from date)').count},
+              {name: Date::MONTHNAMES[1.month.ago.month], data: Expense.where('extract(month from date) = ?', 1.month.ago.month).order('extract(day from date)').group('extract(day from date)').count}
+              ], width: "550px", height: "250px" %>
+            </div>
           </div>
         </div>
       </div>
