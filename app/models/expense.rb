@@ -14,6 +14,12 @@
 
 class Expense < ApplicationRecord
   belongs_to :category
+  after_initialize :set_default
 
   validates :date, :concept, :amount, presence: true
+
+  def set_default
+    self.date ||= Date.today
+    self.amount ||= 0.0
+  end
 end

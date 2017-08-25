@@ -3,22 +3,14 @@
     <div class="col-md-3">
       <h4 class="filter-header">Transaction Type <span>Choose to filter</span></h4>
       <div class="list-group filter-type">
-        <!-- <a href="#" class="list-group-item">Compra</a>
-        <a href="#" class="list-group-item">Retiro</a>
-        <a href="#" class="list-group-item">Transferencia</a>
-        <a href="#" class="list-group-item">Pago</a> -->
         <%= link_to  "Compra", expenses_path(expense_type: 'compra'), class: "list-group-item" %>
         <%= link_to  "Retiro", expenses_path(expense_type: 'retiro'), class: "list-group-item" %>
         <%= link_to  "Transferencia", expenses_path(expense_type: 'transferencia'), class: "list-group-item" %>
         <%= link_to  "Pago", expenses_path(expense_type: 'pago'), class: "list-group-item" %>
-        <!-- more transaction types -->
       </div>
 
       <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
       <div class="list-group filter-type">
-        <!-- <a href="#" class="list-group-item">Restaurants</a>
-        <a href="#" class="list-group-item">Car</a> -->
-        <!-- more categories  -->
         <% @categories.each do |category| %>
           <%= link_to  category.name, expenses_path(category_id: category), class: "list-group-item" %>
         <% end %>
@@ -40,9 +32,18 @@
         </div>
       </div>
 
+      <% if @errors %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @errors.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
-          <!-- <a href="#myExpense" class="btn btn-success pull-left" data-toggle="modal"  data-target="#myExpense"><span class="glyphicon glyphicon-plus"></span> New Expense</a> -->
           <%= link_to  new_expense_path, remote: true, class: "btn btn-success pull-left" do %>
             <span class="glyphicon glyphicon-plus"></span> New Expense
           <% end %>
@@ -68,7 +69,6 @@
               <li role="presentation"><%= link_to Date::MONTHNAMES[9.month.ago.month]+ ' ' + 9.month.ago.year.to_s, expenses_path(month: 9.month.ago.month, year: 9.month.ago.year) %></li>
               <li role="presentation"><%= link_to Date::MONTHNAMES[10.month.ago.month]+ ' ' + 10.month.ago.year.to_s, expenses_path(month: 10.month.ago.month, year: 10.month.ago.year) %></li>
               <li role="presentation"><%= link_to Date::MONTHNAMES[11.month.ago.month]+ ' ' + 11.month.ago.year.to_s, expenses_path(month: 11.month.ago.month, year: 11.month.ago.year) %></li>
-              <!-- more months -->
             </ul>
           </h4>
         </div>
@@ -102,8 +102,6 @@
               <td class="text-right" style="width: 170px;">
                 <div class="amount">$ <%= expense.amount %></div>
                 <div class="actions">
-                  <!-- <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                  <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
                   <%= link_to  edit_expense_path(expense), remote: true do %>
                     <span class="glyphicon glyphicon-edit"></span> Edit
                   <% end %>
@@ -118,14 +116,7 @@
         </tbody>
       </table>
 
-
-      <!-- Button trigger modal -->
-      <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myExpense">
-        Launch demo modal
-      </button> -->
-
       <div class="modal2"></div>
-      <!-- Modal -->
 
 
     </div>

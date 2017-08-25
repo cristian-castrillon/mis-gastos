@@ -6,18 +6,8 @@
         <h4 class="modal-title" id="myExpenseLabel">Expense</h4>
       </div>
 
-      <%= form_for @expense do |f| %>
+      <%= form_for @expense, class: "mod-form" do |f| %>
         <div class="modal-body">
-
-          <% if @expense.errors.any? %>
-            <div class="alert alert-danger">
-              <ul>
-              <% @expense.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
 
           <div class="form-group">
             <%= f.label :expense_type, 'Tipo' %><br>
@@ -41,10 +31,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
           <div class="action">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <%= f.submit 'Crear gasto', class: "btn btn-primary" %>
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="cerrar">Cerrar</button>
+            <%= f.submit 'Guardar', class: "btn btn-primary" %>
           </div>
         </div>
       <% end %>

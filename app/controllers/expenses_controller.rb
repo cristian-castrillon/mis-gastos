@@ -27,10 +27,9 @@ class ExpensesController < ApplicationController
     if expense.save
       redirect_to(expenses_path, notice: 'Expense has been created successfully')
     else
-      # @errors = expense.errors.full_messages
+      @errors = expense.errors.full_messages
       @categories = Category.all
       @expenses = Expense.all
-      @expense = Expense.new
       render :index
     end
   end
