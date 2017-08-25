@@ -1,4 +1,6 @@
-# README
+# Expensify
+
+[![CircleCI](https://circleci.com/gh/cristian-castrillon/mis-gastos.svg?style=svg)](https://circleci.com/gh/cristian-castrillon/mis-gastos)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
