@@ -1,0 +1,4 @@
+$('.modal2').html('')
+var form = $('<%= escape_javascript render "modal" %>')
+$('.modal2').append(form)
+$('#myExpense').modal('show')
