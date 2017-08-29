@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+      <div class="total-box col-md-3">
+        $ <%= @today %>
+        <span>HOY</span>
+      </div>
+      <div class="total-box col-md-3">
+          $ <%= @yesterday %>
+        <span>AYER</span>
+      </div>
+      <div class="total-box col-md-3">
+          $ <%= @this_month %>
+        <span>ESTE MES</span>
+      </div>
+      <div class="total-box col-md-3">
+          $ <%= @last_month %>
+        <span>MES PASADO</span>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 40px;">
+      <div class="box col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Últimos 6 Meses</div>
+          <div class="panel-body">
+            <div id="expenses-chart" style="height: 250px;">
+              <%= column_chart @last_6_months, stacked: true, width: "550px", height: "250px" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Por Día</div>
+          <div class="panel-body">
+            <div id="daily-expenses-chart" style="height: 250px;">
+              <%= column_chart @per_day, width: "550px", height: "250px" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px;">
+      <div class="box col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Por Categoría</div>
+          <div class="panel-body">
+            <div id="category-chart" style="height: 250px;">
+              <%= pie_chart @per_category, donut: true, width: "550px", height: "250px" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" box col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Acumulado</div>
+          <div class="panel-body">
+            <div id="month-acc" style="height: 250px;">
+              <%= area_chart [
+              {name: @name_last_month, data: @acum_last_month},
+              {name: @name_this_month, data: @acum_this_month}
+              ], width: "550px", height: "250px" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px;">
+      <div class=" box col-md-6">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Categoría</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @categories.each do |category| %>
+              <tr>
+                <th><%= category.id %></th>
+                <th><%= category.name %></th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

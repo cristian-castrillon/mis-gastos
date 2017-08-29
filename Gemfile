@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'annotate'
 
+gem 'chartkick'
+
 gem 'faker'
 
 # Use Capistrano for deployment
