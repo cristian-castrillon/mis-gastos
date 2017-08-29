@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   # root 'dashboard#index'
   root 'dashboard#index'
   resources :expenses, only: [:index, :create, :update, :destroy, :edit, :new]
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :expenses, only: [:index, :create, :update, :destroy]
+    end
+  end
 end
