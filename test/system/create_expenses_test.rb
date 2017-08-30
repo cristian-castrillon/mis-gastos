@@ -7,7 +7,7 @@ class CreateExpensesTest < ApplicationSystemTestCase
 
     fill_in "Fecha", with: Date.today
     fill_in "Concepto", with: "Bandeja Paisa"
-    fill_in "Cantidad", with: 17000.00
+    fill_in "Valor", with: 17000.00
     click_button "Guardar"
 
     assert_text "Bandeja Paisa"
