@@ -12,7 +12,8 @@ class DashboardController < ApplicationController
     @name_this_month = Date::MONTHNAMES[Date.today.month]
     @name_last_month = Date::MONTHNAMES[1.month.ago.month]
     sum = 0
+    sum2 = 0
     @acum_this_month = Expense.where('extract(month from date) = ?', Date.today.month).order('extract(day from date)').group('extract(day from date)').sum(:amount).map { |x,y| { x => (sum += y)} }.reduce({}, :merge)
-    @acum_last_month = Expense.where('extract(month from date) = ?', 1.month.ago.month).order('extract(day from date)').group('extract(day from date)').sum(:amount).map { |x,y| { x => (sum += y)} }.reduce({}, :merge)
+    @acum_last_month = Expense.where('extract(month from date) = ?', 1.month.ago.month).order('extract(day from date)').group('extract(day from date)').sum(:amount).map { |x,y| { x => (sum2 += y)} }.reduce({}, :merge)
   end
 end

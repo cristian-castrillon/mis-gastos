@@ -14,4 +14,13 @@ class CategoryTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  test "it should create a new category" do
+    category = Category.new(name: 'Mascotas')
+    assert category.save
+  end
+
+  test "it can't create an already existing category" do
+    category = Category.new(name: 'Restaurante')
+    assert_not category.save
+  end
 end

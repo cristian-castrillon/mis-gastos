@@ -15,15 +15,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  expense_type: MyString
+  expense_type: 'compra'
   date: 2017-08-10
-  concept: MyString
+  concept: 'Perro'
   category: one
-  amount: 9.99
+  amount: 10000
 
 two:
-  expense_type: MyString
+  expense_type: 'retiro'
   date: 2017-08-10
-  concept: MyString
+  concept: 'Carne'
   category: two
-  amount: 9.99
+  amount: 20000

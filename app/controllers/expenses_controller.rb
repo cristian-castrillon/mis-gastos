@@ -13,8 +13,6 @@ class ExpensesController < ApplicationController
     else
       @expenses = Expense.all
     end
-    # @expense = Expense.new
-    # puts params
   end
 
   def new
