@@ -18,6 +18,11 @@ class ExpenseTest < ActiveSupport::TestCase
   def setup
     @expense = expenses(:one)
   end
+
+  test "expense should be valid" do
+    assert @expense.valid?
+  end
+
   test "it should create a new expense" do
     category = categories(:one)
     expense = Expense.new(expense_type: 'compra', date: Date.today, concept: 'Pastas con albondigas', category: category, amount: 17000.00)
